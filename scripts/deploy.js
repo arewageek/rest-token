@@ -6,23 +6,26 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
-async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+// async function main() {
+//   const RestToken = await hre.ethers.getContractFactory('RestToken')
+//   const restToken = await RestToken.deploy(100000000, 50)
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+//   await restToken.deployed()
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+// }
+//   console.log(`Rest Token has been deployed: ${restToken.address}`);
 
-  await lock.waitForDeployment();
+async function main(){
+  const [deployer] = await hre.ethers.getSigners();
+  const RestToken = await hre.ethers.getContractFactory("RestToken");
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  const restToken = await RestToken.deploy(100000000, 50, { from: deployer.address })
+
+  // await restToken.deploy();
+  await restToken.deployTransaction
+
+
+  console.log("Successfully deployed contract on Sepolia Testnet", restToken)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

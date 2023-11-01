@@ -109,6 +109,7 @@
     "diff": "^5.0.0",
     "difflib": "^0.2.4",
     "dir-glob": "^3.0.1",
+    "dotenv": "^16.3.1",
     "elliptic": "^6.5.4",
     "emoji-regex": "^8.0.0",
     "enquirer": "^2.4.1",
